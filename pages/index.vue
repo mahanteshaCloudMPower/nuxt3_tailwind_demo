@@ -164,9 +164,6 @@
           >
             clear
           </button>
-          <button @click="myFunction()" id="myButton" value="Open Curtain">
-            Open Curtain
-          </button>
         </div>
       </form>
     </div>
@@ -335,18 +332,6 @@ let checkArray = false;
 let userName = ref("");
 let emailId = ref("");
 let password = ref("");
-
-function myFunction() {
-  var btn = document.getElementById("myButton");
-
-  if (btn.value == "Open Curtain") {
-    btn.value = "Close Curtain";
-    btn.innerHTML = "Close Curtain";
-  } else {
-    btn.value = "Open Curtain";
-    btn.innerHTML = "Open Curtain";
-  }
-}
 
 function formSubmit(e, form) {
   var btn = document.getElementById("submitBtn");
