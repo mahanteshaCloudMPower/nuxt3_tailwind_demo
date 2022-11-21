@@ -1,0 +1,23 @@
+{
+  "private": true,
+ "scripts": {
+    "build": "nuxt build",
+    "dev": "nuxt dev -p 7001",
+    "generate": "nuxt generate",
+    "preview": "nuxt preview",
+    "postinstall": "nuxt prepare"
+  },
+  "devDependencies": {
+    "@nuxtjs/tailwindcss": "^6.1.2",
+    "postcss": "^8.4.18"
+  },
+  "dependencies": {
+    "@headlessui/vue": "^1.7.3",
+    "@heroicons/vue": "^2.0.12",
+    "@tailwindcss/forms": "^0.5.3",
+    "core-js": "^3.15.1",
+    "lodash": "^4.17.21",
+    "nuxt": "3.0.0-rc.12",
+    "vue-json-viewer": "^3.0.4"
+  }
+}
