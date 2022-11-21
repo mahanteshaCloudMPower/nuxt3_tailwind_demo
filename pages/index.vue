@@ -119,8 +119,10 @@
         />
         <div class="flex justify-between mt-2">
           <button
+            id="submitBtn"
             @click="formSubmit($event, 'validate')"
             type="submit"
+            value="Save"
             class="
               focus:outline-none
               text-white
@@ -161,6 +163,9 @@
             "
           >
             clear
+          </button>
+          <button @click="myFunction()" id="myButton" value="Open Curtain">
+            Open Curtain
           </button>
         </div>
       </form>
@@ -330,58 +335,135 @@ let checkArray = false;
 let userName = ref("");
 let emailId = ref("");
 let password = ref("");
+
+function myFunction() {
+  var btn = document.getElementById("myButton");
+
+  if (btn.value == "Open Curtain") {
+    btn.value = "Close Curtain";
+    btn.innerHTML = "Close Curtain";
+  } else {
+    btn.value = "Open Curtain";
+    btn.innerHTML = "Open Curtain";
+  }
+}
+
 function formSubmit(e, form) {
-  let elements = document.getElementById(form).elements;
+  var btn = document.getElementById("submitBtn");
+  if (btn.value == "Save") {
+    let elements = document.getElementById(form).elements;
 
-  let obj = {};
-  let obj_collection = {};
-  for (let i = 0; i < elements.length; i++) {
-    // console.log(elements.item(i));
-    let item = elements.item(i);
-    // console.log(item, "ghhhhhhhhhhhhhhhhhj");
-    if (item.name !== "") {
-      obj[item.name] = item.value;
+    let obj = {};
+    let obj_collection = {};
+    for (let i = 0; i < elements.length; i++) {
+      // console.log(elements.item(i));
+      let item = elements.item(i);
+      // console.log(item, "ghhhhhhhhhhhhhhhhhj");
+      if (item.name !== "") {
+        obj[item.name] = item.value;
+      }
     }
-  }
 
-  for (const key in obj) {
-    if (obj[key] != "") {
-      checkArray = true;
-      obj_collection[key] = obj[key];
-      console.log(key, obj[key]);
-    } else {
-      checkArray = false;
+    for (const key in obj) {
+      if (obj[key] != "") {
+        checkArray = true;
+        obj_collection[key] = obj[key];
+        console.log(key, obj[key]);
+      } else {
+        checkArray = false;
+      }
     }
-  }
 
-  if (checkArray) {
-    // let user1 = document.getElementById("userName").value;
-    // user1.value = "";
-    // let user2 = document.getElementById("titleName").value;
-    // user2.value = "";
-    // let user3 = document.getElementById("emailId").value;
-    // user3.value = "";
-    // let user4 = document.getElementById("role").value;
-    // user4.value = "";
-    tbodyLoad.value = false;
-    console.log(obj_collection);
-    people.value.push(obj_collection);
+    if (checkArray) {
+      // let user1 = document.getElementById("userName").value;
+      // user1.value = "";
+      // let user2 = document.getElementById("titleName").value;
+      // user2.value = "";
+      // let user3 = document.getElementById("emailId").value;
+      // user3.value = "";
+      // let user4 = document.getElementById("role").value;
+      // user4.value = "";
+      tbodyLoad.value = false;
+      console.log(obj_collection);
+      people.value.push(obj_collection);
 
-    // const removeDuplicates = (array, key) => {
-    //   return array.reduce((arr, item) => {
-    //     const removed = arr.filter((i) => i[key] !== item[key]);
-    //     return [...removed, item];
-    //   }, []);
-    // };
-    // people.value = removeDuplicates(people.value, "userName");
-    // console.log(
-    //   "%c mess",
-    //   "color:red",
-    //   removeDuplicates(people.value, "userName")
-    // );
-    //
-    console.log(people);
-    tbodyLoad.value = true;
+      // const removeDuplicates = (array, key) => {
+      //   return array.reduce((arr, item) => {
+      //     const removed = arr.filter((i) => i[key] !== item[key]);
+      //     return [...removed, item];
+      //   }, []);
+      // };
+      // people.value = removeDuplicates(people.value, "userName");
+      // console.log(
+      //   "%c mess",
+      //   "color:red",
+      //   removeDuplicates(people.value, "userName")
+      // );
+      //
+      console.log(people);
+      tbodyLoad.value = true;
+    }
+  } else {
+    let elements = document.getElementById(form).elements;
+
+    let obj = {};
+    let obj_collection = {};
+    for (let i = 0; i < elements.length; i++) {
+      // console.log(elements.item(i));
+      let item = elements.item(i);
+      // console.log(item, "ghhhhhhhhhhhhhhhhhj");
+      if (item.name !== "") {
+        obj[item.name] = item.value;
+      }
+    }
+
+    for (const key in obj) {
+      if (obj[key] != "") {
+        checkArray = true;
+        obj_collection[key] = obj[key];
+        console.log(key, obj[key]);
+      } else {
+        checkArray = false;
+      }
+    }
+
+    if (checkArray) {
+      // let user1 = document.getElementById("userName").value;
+      // user1.value = "";
+      // let user2 = document.getElementById("titleName").value;
+      // user2.value = "";
+      // let user3 = document.getElementById("emailId").value;
+      // user3.value = "";
+      // let user4 = document.getElementById("role").value;
+      // user4.value = "";
+      tbodyLoad.value = false;
+      console.log(obj_collection);
+      people.value.push(obj_collection);
+
+      // const removeDuplicates = (array, key) => {
+      //   return array.reduce((arr, item) => {
+      //     const removed = arr.filter((i) => i[key] !== item[key]);
+      //     return [...removed, item];
+      //   }, []);
+      // };
+      // people.value = removeDuplicates(people.value, "userName");
+      // console.log(
+      //   "%c mess",
+      //   "color:red",
+      //   removeDuplicates(people.value, "userName")
+      // );
+      //
+      console.log(people);
+      tbodyLoad.value = true;
+    }
+    btn.value = "Save";
+    btn.innerHTML = "Save";
+    function getUniqueListBy(arr, key) {
+      return [...new Map(arr.map((item) => [item[key], item])).values()];
+    }
+
+    people.value = getUniqueListBy(people.value, "userName");
+    console.log("arr1", people.value);
   }
 }
 function clearForm() {
@@ -400,6 +482,14 @@ function clearForm() {
 }
 
 function editUser(user, index) {
+  var btn = document.getElementById("submitBtn");
+  if (btn.value == "Save") {
+    btn.value = "Edit";
+    btn.innerHTML = "Edit";
+  } else {
+    btn.value = "Save";
+    btn.innerHTML = "Save";
+  }
   let userData = JSON.parse(JSON.stringify(user));
   console.log(userData, index);
 
