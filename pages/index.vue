@@ -388,6 +388,7 @@ function formSubmit(e, form) {
       console.log(people);
       tbodyLoad.value = true;
     }
+    clearForm();
   } else {
     let elements = document.getElementById(form).elements;
 
@@ -450,6 +451,7 @@ function formSubmit(e, form) {
     people.value = getUniqueListBy(people.value, "userName");
     console.log("arr1", people.value);
   }
+  clearForm();
 }
 function clearForm() {
   document.getElementById("validate").reset();
@@ -471,9 +473,6 @@ function editUser(user, index) {
   if (btn.value == "Save") {
     btn.value = "Edit";
     btn.innerHTML = "Edit";
-  } else {
-    btn.value = "Save";
-    btn.innerHTML = "Save";
   }
   let userData = JSON.parse(JSON.stringify(user));
   console.log(userData, index);
