@@ -2,9 +2,7 @@
   <div class="mx-auto max-w-full sm:px-6 lg:px-8">
     <div class="flex flex-1 mt-10 justify-center px-2 lg:ml-6">
       <div>
-        <h1 class="text-2xl font-semibold text-gray-900">
-          Fill data to enroll
-        </h1>
+        <h1 class="text-2xl font-semibold text-gray-900">Enter User Details</h1>
       </div>
     </div>
     <div class="flex flex-1 justify-start px-2 lg:ml-6">
@@ -43,7 +41,6 @@
         <input
           type="text"
           name="titleName"
-          v-model="titleName"
           id="titleName"
           autocomplete="titleName"
           class="
@@ -98,7 +95,6 @@
         >
 
         <input
-          v-model="role"
           type="text"
           name="role"
           id="role"
@@ -255,7 +251,11 @@
                   id="tbody"
                   class="divide-y divide-gray-200 bg-white"
                 >
-                  <tr id="trow" v-for="person in people" :key="person.email">
+                  <tr
+                    id="trow"
+                    v-for="(person, index) in people"
+                    :key="person.email"
+                  >
                     <td
                       class="
                         whitespace-nowrap
@@ -299,7 +299,7 @@
                     >
                       <button
                         class="text-indigo-600 hover:text-indigo-900"
-                        @click="editUser(person)"
+                        @click="editUser(person, index)"
                       >
                         Edit
                       </button>
@@ -366,28 +366,43 @@ function formSubmit(e, form) {
     tbodyLoad.value = false;
     console.log(obj_collection);
     people.value.push(obj_collection);
+
+    // const removeDuplicates = (array, key) => {
+    //   return array.reduce((arr, item) => {
+    //     const removed = arr.filter((i) => i[key] !== item[key]);
+    //     return [...removed, item];
+    //   }, []);
+    // };
+    // people.value = removeDuplicates(people.value, "userName");
+    // console.log(
+    //   "%c mess",
+    //   "color:red",
+    //   removeDuplicates(people.value, "userName")
+    // );
+    //
     console.log(people);
     tbodyLoad.value = true;
   }
-  validateClear();
 }
 function clearForm() {
   document.getElementById("validate").reset();
 
-  // console.log("validate");
-  // let user1 = document.getElementById("userName").value;
-  // user1 = "";
-  // console.log("user1", user1);
-  // let user2 = document.getElementById("titleName").value;
-  // user2 = "";
-  // let user3 = document.getElementById("emailId").value;
-  // user3 = "";
-  // let user4 = document.getElementById("role").value;
-  // user4 = "";
+  console.log("validate");
+  let user1 = document.getElementById("userName").value;
+  user1 = "";
+  console.log("user1", user1);
+  let user2 = document.getElementById("titleName").value;
+  user2 = "";
+  let user3 = document.getElementById("emailId").value;
+  user3 = "";
+  let user4 = document.getElementById("role").value;
+  user4 = "";
 }
 
-function editUser(user) {
+function editUser(user, index) {
   let userData = JSON.parse(JSON.stringify(user));
+  console.log(userData, index);
+
   // let userName = document.getElementById("userName");
   if (userData) {
     // userName.innerHTML = userData.userName;
@@ -400,6 +415,8 @@ function editUser(user) {
     // titleName.value = userData.titleName;
     // emailId.value = userData.emailId;
     // role.value = userData.role;
+    // people.value.splice(index, 1);
   }
+  //
 }
 </script>
