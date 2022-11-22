@@ -1,5 +1,6 @@
+
 <template>
-  <div class="mx-auto max-w-full sm:px-6 lg:px-8">
+  <div class="px-4 sm:px-6 lg:px-8">
     <div class="flex flex-1 mt-10 justify-center px-2 lg:ml-6">
       <div>
         <h1 class="text-2xl font-semibold text-gray-900">Enter User Details</h1>
@@ -62,10 +63,10 @@
         />
 
         <label for="emailId" class="block text-sm font-medium text-gray-700"
-          >Email Id*</label
+          >emailId Id*</label
         >
         <input
-          type="email"
+          type="emailId"
           name="emailId"
           id="emailId"
           autocomplete="emailId"
@@ -165,156 +166,260 @@
         </div>
       </form>
     </div>
-    <div class="px-4 mt-5 sm:px-6 lg:px-8">
-      <div class="sm:flex sm:items-center">
-        <div class="sm:flex-auto">
-          <h1 class="text-xl font-semibold text-gray-900">Users</h1>
-          <p class="mt-2 text-sm text-gray-700">
-            A list of all the users in your account including their name, title,
-            email and role.
-          </p>
-        </div>
+    <div class="sm:flex sm:items-center">
+      <div class="sm:flex-auto">
+        <h1 class="text-xl font-semibold text-gray-900">Users</h1>
+        <p class="mt-2 text-sm text-gray-700">
+          A list of all the users in your account including their name, title,
+          emailId and role.
+        </p>
       </div>
-      <div class="mt-8 flex flex-col">
-        <div class="-my-2 -mx-4 overflow-x-auto sm:-mx-6 lg:-mx-8">
+    </div>
+    <div class="mt-8 flex flex-col">
+      <div class="-my-2 -mx-4 overflow-x-auto sm:-mx-6 lg:-mx-8">
+        <div class="inline-block min-w-full py-2 align-middle md:px-6 lg:px-8">
           <div
-            class="inline-block min-w-full py-2 align-middle md:px-6 lg:px-8"
+            class="
+              relative
+              overflow-hidden
+              shadow
+              ring-1 ring-black ring-opacity-5
+              md:rounded-lg
+            "
           >
             <div
+              v-if="selectedPeople.length > 0"
               class="
-                overflow-hidden
-                shadow
-                ring-1 ring-black ring-opacity-5
-                md:rounded-lg
+                absolute
+                top-0
+                left-12
+                flex
+                h-12
+                items-center
+                space-x-3
+                bg-gray-50
+                sm:left-16
               "
             >
-              <table class="min-w-full divide-y divide-gray-300">
-                <thead class="bg-gray-50">
-                  <tr>
-                    <th
-                      scope="col"
-                      class="
-                        py-3.5
-                        pl-4
-                        pr-3
-                        text-left text-sm
-                        font-semibold
-                        text-gray-900
-                        sm:pl-6
-                      "
-                    >
-                      Name
-                    </th>
-                    <th
-                      scope="col"
-                      class="
-                        px-3
-                        py-3.5
-                        text-left text-sm
-                        font-semibold
-                        text-gray-900
-                      "
-                    >
-                      Title
-                    </th>
-                    <th
-                      scope="col"
-                      class="
-                        px-3
-                        py-3.5
-                        text-left text-sm
-                        font-semibold
-                        text-gray-900
-                      "
-                    >
-                      Email
-                    </th>
-                    <th
-                      scope="col"
-                      class="
-                        px-3
-                        py-3.5
-                        text-left text-sm
-                        font-semibold
-                        text-gray-900
-                      "
-                    >
-                      Role
-                    </th>
-                    <th scope="col" class="relative py-3.5 pl-3 pr-4 sm:pr-6">
-                      <span class="sr-only">Edit</span>
-                    </th>
-                  </tr>
-                </thead>
-                <tbody
-                  v-if="tbodyLoad"
-                  id="tbody"
-                  class="divide-y divide-gray-200 bg-white"
-                >
-                  <tr
-                    id="trow"
-                    v-for="(person, index) in people"
-                    :key="person.email"
-                  >
-                    <td
-                      class="
-                        whitespace-nowrap
-                        py-4
-                        pl-4
-                        pr-3
-                        text-sm
-                        font-medium
-                        text-gray-900
-                        sm:pl-6
-                      "
-                    >
-                      {{ person.userName }}
-                    </td>
-                    <td
-                      class="whitespace-nowrap px-3 py-4 text-sm text-gray-500"
-                    >
-                      {{ person.titleName }}
-                    </td>
-                    <td
-                      class="whitespace-nowrap px-3 py-4 text-sm text-gray-500"
-                    >
-                      {{ person.emailId }}
-                    </td>
-                    <td
-                      class="whitespace-nowrap px-3 py-4 text-sm text-gray-500"
-                    >
-                      {{ person.role }}
-                    </td>
-                    <td
-                      class="
-                        relative
-                        whitespace-nowrap
-                        py-4
-                        pl-3
-                        pr-4
-                        text-right text-sm
-                        font-medium
-                        sm:pr-6
-                      "
-                    >
-                      <button
-                        class="text-indigo-600 hover:text-indigo-900"
-                        @click="editUser(person, index)"
-                      >
-                        Edit
-                      </button>
-                    </td>
-                  </tr>
-                </tbody>
-              </table>
+              <button
+                type="button"
+                @click="deleteAll()"
+                class="
+                  inline-flex
+                  items-center
+                  rounded
+                  border border-gray-300
+                  bg-white
+                  px-2.5
+                  py-1.5
+                  text-xs
+                  font-medium
+                  text-gray-700
+                  shadow-sm
+                  hover:bg-gray-50
+                  focus:outline-none
+                  focus:ring-2
+                  focus:ring-indigo-500
+                  focus:ring-offset-2
+                  disabled:cursor-not-allowed disabled:opacity-30
+                "
+              >
+                Delete all
+              </button>
             </div>
+            <table class="min-w-full table-fixed divide-y divide-gray-300">
+              <thead class="bg-gray-50">
+                <tr>
+                  <th scope="col" class="relative w-12 px-6 sm:w-16 sm:px-8">
+                    <input
+                      type="checkbox"
+                      class="
+                        absolute
+                        left-4
+                        top-1/2
+                        -mt-2
+                        h-4
+                        w-4
+                        rounded
+                        border-gray-300
+                        text-indigo-600
+                        focus:ring-indigo-500
+                        sm:left-6
+                      "
+                      :checked="
+                        indeterminate || selectedPeople.length === people.length
+                      "
+                      :indeterminate="indeterminate"
+                      @change="
+                        selectedPeople = $event.target.checked
+                          ? people.map((p) => p.emailId)
+                          : []
+                      "
+                    />
+                  </th>
+                  <th
+                    scope="col"
+                    class="
+                      min-w-[12rem]
+                      py-3.5
+                      pr-3
+                      text-left text-sm
+                      font-semibold
+                      text-gray-900
+                    "
+                  >
+                    Name
+                  </th>
+                  <th
+                    scope="col"
+                    class="
+                      px-3
+                      py-3.5
+                      text-left text-sm
+                      font-semibold
+                      text-gray-900
+                    "
+                  >
+                    Title
+                  </th>
+                  <th
+                    scope="col"
+                    class="
+                      px-3
+                      py-3.5
+                      text-left text-sm
+                      font-semibold
+                      text-gray-900
+                    "
+                  >
+                    emailId
+                  </th>
+                  <th
+                    scope="col"
+                    class="
+                      px-3
+                      py-3.5
+                      text-left text-sm
+                      font-semibold
+                      text-gray-900
+                    "
+                  >
+                    Role
+                  </th>
+                  <th scope="col" class="relative py-3.5 pl-3 pr-4 sm:pr-6">
+                    <span class="sr-only">Edit</span>
+                  </th>
+                </tr>
+              </thead>
+              <tbody class="divide-y divide-gray-200 bg-white">
+                <tr
+                  v-for="person in people"
+                  :key="person.emailId"
+                  :class="[
+                    selectedPeople.includes(person.emailId) && 'bg-gray-50',
+                  ]"
+                >
+                  <td class="relative w-12 px-6 sm:w-16 sm:px-8">
+                    <div
+                      v-if="selectedPeople.includes(person.emailId)"
+                      class="absolute inset-y-0 left-0 w-0.5 bg-indigo-600"
+                    ></div>
+                    <input
+                      type="checkbox"
+                      class="
+                        absolute
+                        left-4
+                        top-1/2
+                        -mt-2
+                        h-4
+                        w-4
+                        rounded
+                        border-gray-300
+                        text-indigo-600
+                        focus:ring-indigo-500
+                        sm:left-6
+                      "
+                      :value="person.emailId"
+                      v-model="selectedPeople"
+                    />
+                  </td>
+                  <td
+                    :class="[
+                      'whitespace-nowrap py-4 pr-3 text-sm font-medium',
+                      selectedPeople.includes(person.emailId)
+                        ? 'text-indigo-600'
+                        : 'text-gray-900',
+                    ]"
+                  >
+                    {{ person.userName }}
+                  </td>
+                  <td class="whitespace-nowrap px-3 py-4 text-sm text-gray-500">
+                    {{ person.titleName }}
+                  </td>
+                  <td class="whitespace-nowrap px-3 py-4 text-sm text-gray-500">
+                    {{ person.emailId }}
+                  </td>
+                  <td class="whitespace-nowrap px-3 py-4 text-sm text-gray-500">
+                    {{ person.role }}
+                  </td>
+                  <td
+                    class="
+                      whitespace-nowrap
+                      py-4
+                      pl-3
+                      pr-4
+                      text-right text-sm
+                      font-medium
+                      sm:pr-6
+                    "
+                  >
+                    <button
+                      class="text-indigo-600 hover:text-indigo-900"
+                      @click="editUser(person, index)"
+                    >
+                      Edit
+                    </button>
+                  </td>
+                  <td
+                    class="
+                      whitespace-nowrap
+                      py-4
+                      pl-3
+                      pr-4
+                      text-right text-sm
+                      font-medium
+                      sm:pr-6
+                    "
+                  >
+                    <button
+                      class="text-indigo-600 hover:text-indigo-900"
+                      @click="deleteUser(person, index)"
+                    >
+                      Delete
+                    </button>
+                  </td>
+                </tr>
+              </tbody>
+            </table>
           </div>
         </div>
       </div>
     </div>
   </div>
 </template>
+
 <script setup>
+import { ref, computed } from "vue";
+const selectedPeople = ref([]);
+const checked = ref(false);
+console.log("checked", checked);
+const indeterminate = computed(
+  () =>
+    selectedPeople.value.length > 0 &&
+    selectedPeople.value.length < people.length
+);
+console.log("selectedPeople", selectedPeople);
+
 const people = ref([]);
 people.value = [
   {
@@ -326,6 +431,26 @@ people.value = [
 ];
 let tbodyLoad = ref(true);
 let checkArray = false;
+
+function deleteAll() {
+  let selectData = JSON.parse(JSON.stringify(selectedPeople.value));
+  console.log("selectData", selectData.length);
+  for (let i = 0; i < selectData.length; i++) {
+    people.value.splice(
+      people.value.findIndex((a) => a.emailId === selectData[i]),
+      1
+    );
+  }
+  console.log("people", people.value);
+}
+function deleteUser(user) {
+  console.log("use people.value", people.value);
+  people.value.splice(
+    people.value.findIndex((a) => a.emailId === user.emailId),
+    1
+  );
+  console.log("use people.value", people.value);
+}
 function formSubmit(e, form) {
   e.preventDefault();
   var btn = document.getElementById("submitBtn");
@@ -363,7 +488,7 @@ function formSubmit(e, form) {
     }
     btn.value = "Save";
     btn.innerHTML = "Save";
-    people.value = getUniqueListBy(people.value, "userName");
+    people.value = getUniqueListBy(people.value, "emailId");
   }
   clearForm();
 }
