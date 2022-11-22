@@ -13,7 +13,6 @@
         <input
           type="text"
           name="userName"
-          v-model="userName"
           id="userName"
           autocomplete="userName"
           class="
@@ -66,7 +65,6 @@
           >Email Id*</label
         >
         <input
-          v-model="emailId"
           type="email"
           name="emailId"
           id="emailId"
@@ -325,67 +323,25 @@ people.value = [
     emailId: "lindsay.walton@example.com",
     role: "Member",
   },
-  // More people...
 ];
 let tbodyLoad = ref(true);
 let checkArray = false;
-let userName = ref("");
-let emailId = ref("");
-let password = ref("");
-
 function formSubmit(e, form) {
+  e.preventDefault();
   var btn = document.getElementById("submitBtn");
   if (btn.value == "Save") {
     let elements = document.getElementById(form).elements;
-
     let obj = {};
-    let obj_collection = {};
     for (let i = 0; i < elements.length; i++) {
-      // console.log(elements.item(i));
       let item = elements.item(i);
-      // console.log(item, "ghhhhhhhhhhhhhhhhhj");
       if (item.name !== "") {
+        checkArray = true;
         obj[item.name] = item.value;
       }
     }
-
-    for (const key in obj) {
-      if (obj[key] != "") {
-        checkArray = true;
-        obj_collection[key] = obj[key];
-        console.log(key, obj[key]);
-      } else {
-        checkArray = false;
-      }
-    }
-
     if (checkArray) {
-      // let user1 = document.getElementById("userName").value;
-      // user1.value = "";
-      // let user2 = document.getElementById("titleName").value;
-      // user2.value = "";
-      // let user3 = document.getElementById("emailId").value;
-      // user3.value = "";
-      // let user4 = document.getElementById("role").value;
-      // user4.value = "";
       tbodyLoad.value = false;
-      console.log(obj_collection);
-      people.value.push(obj_collection);
-
-      // const removeDuplicates = (array, key) => {
-      //   return array.reduce((arr, item) => {
-      //     const removed = arr.filter((i) => i[key] !== item[key]);
-      //     return [...removed, item];
-      //   }, []);
-      // };
-      // people.value = removeDuplicates(people.value, "userName");
-      // console.log(
-      //   "%c mess",
-      //   "color:red",
-      //   removeDuplicates(people.value, "userName")
-      // );
-      //
-      console.log(people);
+      people.value.push(obj);
       tbodyLoad.value = true;
     }
     clearForm();
@@ -393,103 +349,46 @@ function formSubmit(e, form) {
     let elements = document.getElementById(form).elements;
 
     let obj = {};
-    let obj_collection = {};
     for (let i = 0; i < elements.length; i++) {
-      // console.log(elements.item(i));
       let item = elements.item(i);
-      // console.log(item, "ghhhhhhhhhhhhhhhhhj");
       if (item.name !== "") {
+        checkArray = true;
         obj[item.name] = item.value;
       }
     }
-
-    for (const key in obj) {
-      if (obj[key] != "") {
-        checkArray = true;
-        obj_collection[key] = obj[key];
-        console.log(key, obj[key]);
-      } else {
-        checkArray = false;
-      }
-    }
-
     if (checkArray) {
-      // let user1 = document.getElementById("userName").value;
-      // user1.value = "";
-      // let user2 = document.getElementById("titleName").value;
-      // user2.value = "";
-      // let user3 = document.getElementById("emailId").value;
-      // user3.value = "";
-      // let user4 = document.getElementById("role").value;
-      // user4.value = "";
       tbodyLoad.value = false;
-      console.log(obj_collection);
-      people.value.push(obj_collection);
-
-      // const removeDuplicates = (array, key) => {
-      //   return array.reduce((arr, item) => {
-      //     const removed = arr.filter((i) => i[key] !== item[key]);
-      //     return [...removed, item];
-      //   }, []);
-      // };
-      // people.value = removeDuplicates(people.value, "userName");
-      // console.log(
-      //   "%c mess",
-      //   "color:red",
-      //   removeDuplicates(people.value, "userName")
-      // );
-      //
-      console.log(people);
+      people.value.push(obj);
       tbodyLoad.value = true;
     }
     btn.value = "Save";
     btn.innerHTML = "Save";
-    function getUniqueListBy(arr, key) {
-      return [...new Map(arr.map((item) => [item[key], item])).values()];
-    }
-
     people.value = getUniqueListBy(people.value, "userName");
-    console.log("arr1", people.value);
   }
   clearForm();
 }
+function getUniqueListBy(arr, key) {
+  return [...new Map(arr.map((item) => [item[key], item])).values()];
+}
 function clearForm() {
-  document.getElementById("validate").reset();
-
-  console.log("validate");
-  let user1 = document.getElementById("userName").value;
-  user1 = "";
-  console.log("user1", user1);
-  let user2 = document.getElementById("titleName").value;
-  user2 = "";
-  let user3 = document.getElementById("emailId").value;
-  user3 = "";
-  let user4 = document.getElementById("role").value;
-  user4 = "";
+  let form = document.getElementById("validate");
+  form.reset();
+  document.getElementById("userName").value = "";
+  document.getElementById("titleName").value = "";
+  document.getElementById("emailId").value = "";
+  document.getElementById("role").value = "";
 }
 
 function editUser(user, index) {
   var btn = document.getElementById("submitBtn");
-  if (btn.value == "Save") {
+  let userData = JSON.parse(JSON.stringify(user));
+  if (userData) {
     btn.value = "Edit";
     btn.innerHTML = "Edit";
-  }
-  let userData = JSON.parse(JSON.stringify(user));
-  console.log(userData, index);
-
-  // let userName = document.getElementById("userName");
-  if (userData) {
-    // userName.innerHTML = userData.userName;
     document.getElementById("userName").value = userData.userName;
     document.getElementById("titleName").value = userData.titleName;
     document.getElementById("emailId").value = userData.emailId;
     document.getElementById("role").value = userData.role;
-    // console.log(userData.userName);
-    // userName.value = userData.userName;
-    // titleName.value = userData.titleName;
-    // emailId.value = userData.emailId;
-    // role.value = userData.role;
-    // people.value.splice(index, 1);
   }
   //
 }

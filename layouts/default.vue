@@ -114,7 +114,7 @@ const user = {
 };
 const navigation = [
   { name: "Home", path: "/", current: true },
-  // { name: "Team", path: "/", current: false },
+  { name: "Edit", path: "/editPage", current: false },
   // { name: "Projects", path: "/", current: false },
   // { name: "Calendar", path: "/", current: false },
 ];
