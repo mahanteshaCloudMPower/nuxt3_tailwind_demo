@@ -114,8 +114,8 @@ const user = {
 };
 const navigation = [
   { name: "Home", path: "/", current: true },
-  { name: "Edit", path: "/editPage", current: false },
-  // { name: "Projects", path: "/", current: false },
+  { name: "ComingSoon", path: "/comingSoon", current: false },
+  { name: "VueReactive", path: "/reactive", current: false },
   // { name: "Calendar", path: "/", current: false },
 ];
 </script>
