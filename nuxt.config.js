@@ -16,6 +16,7 @@ export default defineNuxtConfig({
     link: [{ rel: "icon", type: "image/x-icon", href: "favicon.ico" }],
   },
   ssr: false,
+  css: ["~/assets/css/main.css"],
 
   //  pluggins:[{
   //   src: '~/plugins/JSONViewer'
@@ -36,9 +37,5 @@ export default defineNuxtConfig({
         autoprefixer: {},
       },
     },
-  },
-  server: {
-    port: 7001, // default: 3000,
-    host: 0,
   },
 });

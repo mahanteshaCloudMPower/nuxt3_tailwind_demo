@@ -1,6 +1,7 @@
 <template>
   <div
     class="
+      mt-10
       relative
       min-h-screen
       flex

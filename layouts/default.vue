@@ -24,23 +24,29 @@
                 alt="Your Company"
               />
             </div>
-            <div class="hidden sm:-my-px sm:ml-6 sm:flex sm:space-x-8">
+            <divid
+              id="navigate"
+              class="hidden sm:-my-px sm:ml-6 sm:flex sm:space-x-8"
+            >
               <a
                 v-for="item in navigation"
                 :key="item.name"
                 :class="[
                   item.current
                     ? 'border-indigo-500 text-gray-900'
-                    : 'border-transparent text-gray-500 hover:text-gray-700 hover:border-gray-300',
+                    : 'border-transparent text-gray-500 hover:text-pink-700 hover:border-gray-300',
                   'inline-flex items-center px-1 pt-1 border-b-2 text-sm font-medium',
                 ]"
                 :aria-current="item.current ? 'page' : undefined"
               >
-                <NuxtLink :to="item.path" class="n-link-base">{{
-                  item.name
-                }}</NuxtLink>
+                <NuxtLink
+                  :to="item.path"
+                  class="n-link-base"
+                  @click="chengeChanges(item)"
+                  >{{ item.name }}</NuxtLink
+                >
               </a>
-            </div>
+            </divid>
           </div>
         </div>
       </div>
@@ -51,17 +57,18 @@
             v-for="item in navigation"
             :key="item.name"
             as="a"
+            class="changeFoucs"
             :class="[
               item.current
-                ? 'bg-indigo-50 border-indigo-500 text-indigo-700'
-                : 'border-transparent text-gray-600 hover:bg-gray-50 hover:border-gray-300 hover:text-gray-800',
+                ? 'bg-pink-50 border-pink-500 text-pnk-700'
+                : 'border-transparent text-pink-600 hover:bg-pink-50 hover:border-pink-300 hover:text-pink-800',
               'block pl-3 pr-4 py-2 border-l-4 text-base font-medium',
             ]"
             :aria-current="item.current ? 'page' : undefined"
           >
-            <NuxtLink :to="item.path" class="n-link-base">{{
-              item.name
-            }}</NuxtLink>
+            <NuxtLink :to="item.path">
+              {{ item.name }}
+            </NuxtLink>
           </DisclosureButton>
         </div>
       </DisclosurePanel>
@@ -113,9 +120,24 @@ const user = {
     "https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=facearea&facepad=2&w=256&h=256&q=80",
 };
 const navigation = [
-  { name: "Home", path: "/", current: true },
+  { name: "Home", path: "/", current: false },
   { name: "ComingSoon", path: "/comingSoon", current: false },
   { name: "VueReactive", path: "/reactive", current: false },
   // { name: "Calendar", path: "/", current: false },
 ];
+function chengeChanges(item) {
+  console.log("item", item);
+  for (let i = 0; i < navigation.length; i++) {
+    if (navigation[i].name === item.name) {
+      navigation[i].current = true;
+    } else {
+      navigation[i].current = false;
+    }
+  }
+}
 </script>
+<style scoped>
+.changeFoucs {
+  background-color: aqua;
+}
+</style>

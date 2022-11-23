@@ -451,46 +451,39 @@ function deleteUser(user) {
   );
   console.log("use people.value", people.value);
 }
+function addData() {
+  let userName = document.forms["validate"]["userName"].value;
+  let titleName = document.forms["validate"]["titleName"].value;
+  let emailId = document.forms["validate"]["emailId"].value;
+  let role = document.forms["validate"]["role"].value;
+
+  var btn = document.getElementById("submitBtn");
+  if (btn.value == "Save") {
+    if (userName != "" && titleName != "" && emailId != "" && role != "") {
+      people.value.push({
+        userName: userName,
+        titleName: titleName,
+        emailId: emailId,
+        role: role,
+      });
+      clearForm();
+    } else {
+      alert("Fill all the fields");
+    }
+  }
+}
 function formSubmit(e, form) {
   e.preventDefault();
   var btn = document.getElementById("submitBtn");
-  if (btn.value == "Save") {
-    let elements = document.getElementById(form).elements;
-    let obj = {};
-    for (let i = 0; i < elements.length; i++) {
-      let item = elements.item(i);
-      if (item.name !== "") {
-        checkArray = true;
-        obj[item.name] = item.value;
-      }
-    }
-    if (checkArray) {
-      tbodyLoad.value = false;
-      people.value.push(obj);
-      tbodyLoad.value = true;
-    }
-    clearForm();
+  if ((btn.value = "Save")) {
+    addData();
   } else {
-    let elements = document.getElementById(form).elements;
-
-    let obj = {};
-    for (let i = 0; i < elements.length; i++) {
-      let item = elements.item(i);
-      if (item.name !== "") {
-        checkArray = true;
-        obj[item.name] = item.value;
-      }
-    }
-    if (checkArray) {
-      tbodyLoad.value = false;
-      people.value.push(obj);
-      tbodyLoad.value = true;
-    }
+    addData();
     btn.value = "Save";
     btn.innerHTML = "Save";
     people.value = getUniqueListBy(people.value, "emailId");
+    clearForm();
   }
-  clearForm();
 }
 function getUniqueListBy(arr, key) {
   return [...new Map(arr.map((item) => [item[key], item])).values()];
