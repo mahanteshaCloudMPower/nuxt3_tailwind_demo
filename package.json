@@ -2,7 +2,7 @@
   "private": true,
   "scripts": {
     "build": "nuxt build",
-    "dev": "nuxt dev -p 7001",
+    "dev": "nuxt dev ",
     "generate": "nuxt generate",
     "preview": "nuxt preview",
     "postinstall": "nuxt prepare"
@@ -19,6 +19,7 @@
     "lodash": "^4.17.21",
     "nuxt": "3.0.0-rc.12",
     "vue-json-viewer": "^3.0.4",
-    "vue-tailwind-datepicker": "^1.1.5"
+    "vue-tailwind-datepicker": "^1.1.5",
+    "vue3-datepicker": "^0.3.4"
   }
 }
