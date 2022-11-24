@@ -232,6 +232,7 @@
                 <tr>
                   <th scope="col" class="relative w-12 px-6 sm:w-16 sm:px-8">
                     <input
+                      id="checkBox"
                       type="checkbox"
                       class="
                         absolute
@@ -410,15 +411,6 @@
 
 <script setup>
 import { ref, computed } from "vue";
-const selectedPeople = ref([]);
-const checked = ref(false);
-console.log("checked", checked);
-const indeterminate = computed(
-  () =>
-    selectedPeople.value.length > 0 &&
-    selectedPeople.value.length < people.length
-);
-console.log("selectedPeople", selectedPeople);
 
 const people = ref([]);
 people.value = [
@@ -429,10 +421,20 @@ people.value = [
     role: "Member",
   },
 ];
-let tbodyLoad = ref(true);
-let checkArray = false;
+const selectedPeople = ref([]);
+const checked = ref(false);
+console.log("checked", checked.value);
+const indeterminate = computed(
+  () =>
+    selectedPeople.value.length > 0 &&
+    selectedPeople.value.length < people.length
+);
+console.log("selectedPeople", selectedPeople);
 
 function deleteAll() {
+  // console.log("checked", checked.value, indeterminate, indeterminate.value);
+  document.getElementById("checkBox").checked = false;
+
   let selectData = JSON.parse(JSON.stringify(selectedPeople.value));
   console.log("selectData", selectData.length);
   for (let i = 0; i < selectData.length; i++) {
@@ -458,31 +460,27 @@ function addData() {
   let role = document.forms["validate"]["role"].value;
 
   var btn = document.getElementById("submitBtn");
-  if (btn.value == "Save") {
-    if (userName != "" && titleName != "" && emailId != "" && role != "") {
-      people.value.push({
-        userName: userName,
-        titleName: titleName,
-        emailId: emailId,
-        role: role,
-      });
-      clearForm();
-    } else {
-      alert("Fill all the fields");
-    }
+
+  if (userName != "" && titleName != "" && emailId != "" && role != "") {
+    people.value.push({
+      userName: userName,
+      titleName: titleName,
+      emailId: emailId,
+      role: role,
+    });
+    clearForm();
+  } else {
+    alert("Fill all the fields");
   }
 }
 function formSubmit(e, form) {
   e.preventDefault();
   var btn = document.getElementById("submitBtn");
-  if ((btn.value = "Save")) {
-    addData();
-  } else {
-    addData();
+  addData();
+  if (btn.value == "Edit") {
     btn.value = "Save";
     btn.innerHTML = "Save";
     people.value = getUniqueListBy(people.value, "emailId");
-    clearForm();
   }
 }
 function getUniqueListBy(arr, key) {

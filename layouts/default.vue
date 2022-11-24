@@ -120,10 +120,11 @@ const user = {
     "https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=facearea&facepad=2&w=256&h=256&q=80",
 };
 const navigation = [
-  { name: "Home", path: "/", current: false },
+  { name: "Home", path: "/", current: true },
   { name: "ComingSoon", path: "/comingSoon", current: false },
   { name: "VueReactive", path: "/reactive", current: false },
-  // { name: "Calendar", path: "/", current: false },
+  // { name: "Calendar", path: "/test", current: false },
+  // { name: "test1", path: "/test1", current: false },
 ];
 function chengeChanges(item) {
   console.log("item", item);
