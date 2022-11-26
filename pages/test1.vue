@@ -101,6 +101,6 @@ let mapReturnData = users.map((ele, index, array) => {
   // console.log(ele, index, array);
 });
 let filterData = users.filter((ele, index, array) => {
-  // console.log(index, array, ele);
+  console.log(index, array, ele);
 });
 </script>
