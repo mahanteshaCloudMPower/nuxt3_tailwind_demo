@@ -1,534 +1,106 @@
-
 <template>
-  <div class="px-4 sm:px-6 lg:px-8">
-    <div class="flex flex-1 mt-10 justify-center px-2 lg:ml-6">
-      <div>
-        <h1 class="text-2xl font-semibold text-gray-900">Enter User Details</h1>
-      </div>
-    </div>
-    <div class="flex flex-1 justify-start px-2 lg:ml-6">
-      <form id="validate" action="javascript:void(0);">
-        <label for="userName" class="block text-sm font-medium text-gray-700"
-          >User Name*</label
-        >
-        <input
-          type="text"
-          name="userName"
-          id="userName"
-          autocomplete="userName"
-          class="
-            bg-gray-50
-            border border-gray-300
-            text-gray-900 text-sm
-            rounded-lg
-            focus:ring-blue-500 focus:border-blue-500
-            block
-            w-full
-            p-2.5
-            dark:bg-gray-700
-            dark:border-gray-600
-            dark:placeholder-gray-400
-            dark:text-white
-            dark:focus:ring-blue-500
-            dark:focus:border-blue-500
-          "
-          required
-        />
-
-        <label for="titleName" class="block text-sm font-medium text-gray-700"
-          >Title*</label
-        >
-        <input
-          type="text"
-          name="titleName"
-          id="titleName"
-          autocomplete="titleName"
-          class="
-            bg-gray-50
-            border border-gray-300
-            text-gray-900 text-sm
-            rounded-lg
-            focus:ring-blue-500 focus:border-blue-500
-            block
-            w-full
-            p-2.5
-            dark:bg-gray-700
-            dark:border-gray-600
-            dark:placeholder-gray-400
-            dark:text-white
-            dark:focus:ring-blue-500
-            dark:focus:border-blue-500
-          "
-          required
-        />
-
-        <label for="emailId" class="block text-sm font-medium text-gray-700"
-          >emailId Id*</label
-        >
-        <input
-          type="emailId"
-          name="emailId"
-          id="emailId"
-          autocomplete="emailId"
-          class="
-            bg-gray-50
-            border border-gray-300
-            text-gray-900 text-sm
-            rounded-lg
-            focus:ring-blue-500 focus:border-blue-500
-            block
-            w-full
-            p-2.5
-            dark:bg-gray-700
-            dark:border-gray-600
-            dark:placeholder-gray-400
-            dark:text-white
-            dark:focus:ring-blue-500
-            dark:focus:border-blue-500
-          "
-          required
-        />
-
-        <label for="passwd" class="block text-sm font-medium text-gray-700"
-          >Role*</label
-        >
-
-        <input
-          type="text"
-          name="role"
-          id="role"
-          autocomplete="role"
-          class="
-            bg-gray-50
-            border border-gray-300
-            text-gray-900 text-sm
-            rounded-lg
-            focus:ring-blue-500 focus:border-blue-500
-            block
-            w-full
-            p-2.5
-            dark:bg-gray-700
-            dark:border-gray-600
-            dark:placeholder-gray-400
-            dark:text-white
-            dark:focus:ring-blue-500
-            dark:focus:border-blue-500
-          "
-          required
-        />
-        <div class="flex justify-between mt-2">
-          <button
-            id="submitBtn"
-            @click="formSubmit($event, 'validate')"
-            type="submit"
-            value="Save"
-            class="
-              focus:outline-none
-              text-white
-              bg-purple-700
-              hover:bg-purple-800
-              focus:ring-4 focus:ring-purple-300
-              font-medium
-              rounded-lg
-              text-sm
-              px-5
-              py-2.5
-              mb-2
-              dark:bg-purple-600
-              dark:hover:bg-purple-700
-              dark:focus:ring-purple-900
-            "
-          >
-            Save
-          </button>
-          <button
-            @click="clearForm($event, 'validate')"
-            type="clear"
-            class="
-              focus:outline-none
-              text-white
-              bg-purple-700
-              hover:bg-purple-800
-              focus:ring-4 focus:ring-purple-300
-              font-medium
-              rounded-lg
-              text-sm
-              px-5
-              py-2.5
-              mb-2
-              dark:bg-purple-600
-              dark:hover:bg-purple-700
-              dark:focus:ring-purple-900
-            "
-          >
-            clear
-          </button>
-        </div>
-      </form>
-    </div>
-    <div class="sm:flex sm:items-center">
-      <div class="sm:flex-auto">
-        <h1 class="text-xl font-semibold text-gray-900">Users</h1>
-        <p class="mt-2 text-sm text-gray-700">
-          A list of all the users in your account including their name, title,
-          emailId and role.
-        </p>
-      </div>
-    </div>
-    <div class="mt-8 flex flex-col">
-      <div class="-my-2 -mx-4 overflow-x-auto sm:-mx-6 lg:-mx-8">
-        <div class="inline-block min-w-full py-2 align-middle md:px-6 lg:px-8">
-          <div
-            class="
-              relative
-              overflow-hidden
-              shadow
-              ring-1 ring-black ring-opacity-5
-              md:rounded-lg
-            "
-          >
-            <div
-              v-if="selectedPeople.length > 0"
-              class="
-                absolute
-                top-0
-                left-12
-                flex
-                h-12
-                items-center
-                space-x-3
-                bg-gray-50
-                sm:left-16
-              "
-            >
-              <button
-                type="button"
-                @click="deleteAll()"
-                class="
-                  inline-flex
-                  items-center
-                  rounded
-                  border border-gray-300
-                  bg-white
-                  px-2.5
-                  py-1.5
-                  text-xs
-                  font-medium
-                  text-gray-700
-                  shadow-sm
-                  hover:bg-gray-50
-                  focus:outline-none
-                  focus:ring-2
-                  focus:ring-indigo-500
-                  focus:ring-offset-2
-                  disabled:cursor-not-allowed disabled:opacity-30
-                "
-              >
-                Delete all
-              </button>
-            </div>
-            <table class="min-w-full table-fixed divide-y divide-gray-300">
-              <thead class="bg-gray-50">
-                <tr>
-                  <th scope="col" class="relative w-12 px-6 sm:w-16 sm:px-8">
-                    <input
-                      id="checkBox"
-                      type="checkbox"
-                      class="
-                        absolute
-                        left-4
-                        top-1/2
-                        -mt-2
-                        h-4
-                        w-4
-                        rounded
-                        border-gray-300
-                        text-indigo-600
-                        focus:ring-indigo-500
-                        sm:left-6
-                      "
-                      :checked="
-                        indeterminate || selectedPeople.length === people.length
-                      "
-                      :indeterminate="indeterminate"
-                      @change="
-                        selectedPeople = $event.target.checked
-                          ? people.map((p) => p.emailId)
-                          : []
-                      "
-                    />
-                  </th>
-                  <th
-                    scope="col"
-                    class="
-                      min-w-[12rem]
-                      py-3.5
-                      pr-3
-                      text-left text-sm
-                      font-semibold
-                      text-gray-900
-                    "
-                  >
-                    Name
-                  </th>
-                  <th
-                    scope="col"
-                    class="
-                      px-3
-                      py-3.5
-                      text-left text-sm
-                      font-semibold
-                      text-gray-900
-                    "
-                  >
-                    Title
-                  </th>
-                  <th
-                    scope="col"
-                    class="
-                      px-3
-                      py-3.5
-                      text-left text-sm
-                      font-semibold
-                      text-gray-900
-                    "
-                  >
-                    emailId
-                  </th>
-                  <th
-                    scope="col"
-                    class="
-                      px-3
-                      py-3.5
-                      text-left text-sm
-                      font-semibold
-                      text-gray-900
-                    "
-                  >
-                    Role
-                  </th>
-                  <th scope="col" class="relative py-3.5 pl-3 pr-4 sm:pr-6">
-                    <span class="sr-only">Edit</span>
-                  </th>
-                </tr>
-              </thead>
-              <tbody v-if="tableData" class="divide-y divide-gray-200 bg-white">
-                <tr
-                  v-for="person in people"
-                  :key="person.emailId"
-                  :class="[
-                    selectedPeople.includes(person.emailId) && 'bg-gray-50',
-                  ]"
-                >
-                  <td class="relative w-12 px-6 sm:w-16 sm:px-8">
-                    <div
-                      v-if="selectedPeople.includes(person.emailId)"
-                      class="absolute inset-y-0 left-0 w-0.5 bg-indigo-600"
-                    ></div>
-                    <input
-                      type="checkbox"
-                      class="
-                        absolute
-                        left-4
-                        top-1/2
-                        -mt-2
-                        h-4
-                        w-4
-                        rounded
-                        border-gray-300
-                        text-indigo-600
-                        focus:ring-indigo-500
-                        sm:left-6
-                      "
-                      :value="person.emailId"
-                      v-model="selectedPeople"
-                    />
-                  </td>
-                  <td
-                    :class="[
-                      'whitespace-nowrap py-4 pr-3 text-sm font-medium',
-                      selectedPeople.includes(person.emailId)
-                        ? 'text-indigo-600'
-                        : 'text-gray-900',
-                    ]"
-                  >
-                    {{ person.userName }}
-                  </td>
-                  <td class="whitespace-nowrap px-3 py-4 text-sm text-gray-500">
-                    {{ person.titleName }}
-                  </td>
-                  <td class="whitespace-nowrap px-3 py-4 text-sm text-gray-500">
-                    {{ person.emailId }}
-                  </td>
-                  <td class="whitespace-nowrap px-3 py-4 text-sm text-gray-500">
-                    {{ person.role }}
-                  </td>
-                  <td
-                    class="
-                      whitespace-nowrap
-                      py-4
-                      pl-3
-                      pr-4
-                      text-right text-sm
-                      font-medium
-                      sm:pr-6
-                    "
-                  >
-                    <button
-                      class="text-indigo-600 hover:text-indigo-900"
-                      @click="editUser(person, index)"
-                    >
-                      Edit
-                    </button>
-                  </td>
-                  <td
-                    class="
-                      whitespace-nowrap
-                      py-4
-                      pl-3
-                      pr-4
-                      text-right text-sm
-                      font-medium
-                      sm:pr-6
-                    "
-                  >
-                    <button
-                      class="text-indigo-600 hover:text-indigo-900"
-                      @click="deleteUser(person, index)"
-                    >
-                      Delete
-                    </button>
-                  </td>
-                </tr>
-              </tbody>
-            </table>
-          </div>
-        </div>
-      </div>
-    </div>
-  </div>
+  <div class="amy"></div>
 </template>
-
+<style scoped>
+.amy {
+  border: 10px solid pink;
+  border-radius: 50%;
+  border-top: 16px solid white;
+  border-bottom: 16px solid black;
+  width: 120px;
+  height: 120px;
+  /* animation: rotate 20s linear infinite; */
+}
+@keyframes rotate {
+  10% {
+    transform: rotate(90deg);
+  }
+  100% {
+    transform: rotate(360deg);
+  }
+}
+</style>
 <script setup>
-import { ref, reactive, computed } from "vue";
+// onMounted(() => {
+//   var a = 10;
+//   for (let index = 0; index < 3; index++) {
+//     console.log("index", a);
+//     var a = 20;
+//     console.log("index", a);
+//   }
+//   // console.log(" OutSideindex", index);
+// });
 
-let people = reactive([
-  {
-    userName: "Lindsay Walton",
-    titleName: "Front-end Developer",
-    emailId: "lindsay.walton@example.com",
-    role: "Member",
-  },
-]);
-let peoplee = JSON.stringify(people);
-localStorage.setItem("people", peoplee);
-let userDataStore = localStorage.getItem("people");
-console.log(JSON.parse(userDataStore), "userDataStore");
-people = JSON.parse(userDataStore) ? JSON.parse(userDataStore) : people;
-console.log("people.valuepeople.value", people.values, people);
-const selectedPeople = ref([]);
-const checked = ref(false);
-const tableData = ref(true);
-console.log("checked", checked.value);
-const indeterminate = computed(
-  () =>
-    selectedPeople.value.length > 0 &&
-    selectedPeople.value.length < people.length
-);
-console.log("selectedPeople", selectedPeople);
+let users = [
+  { userName: "john", email: "john@gmail.com", age: 22 },
+  { userName: "jane", email: "jane@gmail.com", age: 25 },
+  { userName: "adam", email: "adam@gmail.com", age: 24 },
+  { userName: "radf", email: "radf@gmail.com", age: 23 },
+];
+// function chackName(username) {
+//   const findIndexDataIndex = users.findIndex((element) => {
+//     if (element.userName == username) {
+//       element.age = "27";
+//       return element;
+//     }
+//   });
 
-function deleteAll() {
-  tableData.value = false;
-  // console.log("checked", checked.value, indeterminate, indeterminate.value);
-  document.getElementById("checkBox").checked = false;
+//   console.log("user", findIndexDataIndex);
+//   // console.log("users", users);
+//   let filter = users.splice(findIndexDataIndex, 1, {
+//     userName: "mahi",
+//     email: "mahi@gmail.com",
+//     age: "27",
+//   });
+//   console.log("filter", filter);
+//   return filter;
+// }
+// let getIndex = chackName("adam");
+// console.log("usersoutside", users);
 
-  let selectData = JSON.parse(JSON.stringify(selectedPeople.value));
-  console.log("selectData", selectData.length);
-  for (let i = 0; i < selectData.length; i++) {
-    people.splice(
-      people.findIndex((a) => a.emailId === selectData[i]),
-      1
-    );
-  }
-  localStorage.removeItem("people");
-  localStorage.setItem("people", JSON.stringify(people));
-  tableData.value = true;
-}
-function deleteUser(user) {
-  tableData.value = false;
-  console.log("use people", people);
-  people.splice(
-    people.findIndex((a) => a.emailId === user.emailId),
-    1
-  );
+// slice
+//  select and return selected elements form the array it dont change existing array
 
-  localStorage.removeItem("people");
-  localStorage.setItem("people", JSON.stringify(people));
+// splice
+// select and delete and add the elements to the array
+//  select and delete delete using
+// Array.splice(startIndex,upto_delete_number, add_new_value)
 
-  console.log("use people", people);
-  tableData.value = true;
-}
-function addData() {
-  tableData.value = false;
-  let userName = document.forms["validate"]["userName"].value;
-  let titleName = document.forms["validate"]["titleName"].value;
-  let emailId = document.forms["validate"]["emailId"].value;
-  let role = document.forms["validate"]["role"].value;
+// find
+// Array.find((elements)=>{if(condition){ return value}})
 
-  var btn = document.getElementById("submitBtn");
+//map function
+// let returndata = users.map((ele, index) => {
+//   console.log("ele", index, ele);
+// });
 
-  if (userName != "" && titleName != "" && emailId != "" && role != "") {
-    people.push({
-      userName: userName,
-      titleName: titleName,
-      emailId: emailId,
-      role: role,
-    });
-    let comp = computed(() => console.log("computddddddd==========="), people);
-    console.log("comp", comp.value);
-    clearForm();
-    localStorage.removeItem("people");
-    localStorage.setItem("people", JSON.stringify(people));
-  } else {
-    alert("Fill all the fields");
-  }
-  tableData.value = true;
-}
-function formSubmit(e, form) {
-  console.log("fcygvhjjjjjjjjjjjjjj");
-  e.preventDefault();
-  var btn = document.getElementById("submitBtn");
-  addData();
-  if (btn.value == "Edit") {
-    btn.value = "Save";
-    btn.innerHTML = "Save";
-    people = getUniqueListBy(people, "emailId");
-  }
-  console.log("peoplepeoplepeoplepeople", people);
-}
-function getUniqueListBy(arr, key) {
-  return [...new Map(arr.map((item) => [item[key], item])).values()];
-}
-function clearForm() {
-  let form = document.getElementById("validate");
-  form.reset();
-  document.getElementById("userName").value = "";
-  document.getElementById("titleName").value = "";
-  document.getElementById("emailId").value = "";
-  document.getElementById("role").value = "";
-}
+// reduce
+// function reduceFun() {
+//   let reducedData = users.reduce((accum, currentValue) => {
+//     if (currentValue.age > 10) {
+//       accum["userName"] = currentValue.userName;
+//       accum["email"] = currentValue.email;
+//       accum["age"] = currentValue.age + 2;
+//       return accum;
+//     }
+//   }, []);
+//   // return reducedData;
 
-function editUser(user, index) {
-  var btn = document.getElementById("submitBtn");
-  let userData = JSON.parse(JSON.stringify(user));
-  if (userData) {
-    btn.value = "Edit";
-    btn.innerHTML = "Edit";
-    document.getElementById("userName").value = userData.userName;
-    document.getElementById("titleName").value = userData.titleName;
-    document.getElementById("emailId").value = userData.emailId;
-    document.getElementById("role").value = userData.role;
-  }
-  //
-}
+//   console.log("reducedData", reducedData);
+// }
+// let mapReturnData = users.map(reduceFun);
+// console.log("reducedData", reducedData);
+
+// filter methods
+
+let filterRetunData = users.filter((ele, index, array) => {
+  // console.log(ele, index);
+});
+
+let mapReturnData = users.map((ele, index, array) => {
+  // console.log(ele, index, array);
+});
+let filterData = users.filter((ele, index, array) => {
+  // console.log(index, array, ele);
+});
 </script>
