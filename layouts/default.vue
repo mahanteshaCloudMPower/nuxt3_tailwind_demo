@@ -124,7 +124,7 @@ const navigation = [
   { name: "ComingSoon", path: "/comingSoon", current: false },
   { name: "VueReactive", path: "/reactive", current: false },
   // { name: "Calendar", path: "/test", current: false },
-  // { name: "test1", path: "/test1", current: false },
+  { name: "test1", path: "/test1", current: false },
 ];
 function chengeChanges(item) {
   console.log("item", item);
