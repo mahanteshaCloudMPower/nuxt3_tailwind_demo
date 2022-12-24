@@ -116,6 +116,9 @@
 </template>
 
 <script setup>
+definePageMeta({
+  middleware: ["auth"],
+});
 document.querySelectorAll(".grid-background > div").forEach((elem) => {
   // Calculate random number for delay
   var delay = getRandomInt(0, 5);

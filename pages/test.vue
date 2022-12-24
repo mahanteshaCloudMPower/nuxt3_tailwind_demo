@@ -63,6 +63,9 @@
   </div>
 </template>
 <script setup>
+definePageMeta({
+  middleware: ["auth"],
+});
 const names = [
   { name: "mahi", age: 27 },
   { name: "mahi2", age: 26 },

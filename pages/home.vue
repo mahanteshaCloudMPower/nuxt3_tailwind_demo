@@ -312,7 +312,7 @@
                   </th>
                 </tr>
               </thead>
-              <tbody v-if="tableData" class="divide-y divide-gray-200 bg-white">
+              <tbody class="divide-y divide-gray-200 bg-white">
                 <tr
                   v-for="person in people"
                   :key="person.emailId"
@@ -410,28 +410,21 @@
 </template>
 
 <script setup>
-import { ref, reactive, computed } from "vue";
-
+import { ref, computed } from "vue";
 definePageMeta({
   middleware: ["auth"],
 });
-let people = reactive([
+const people = ref([]);
+people.value = [
   {
     userName: "Lindsay Walton",
     titleName: "Front-end Developer",
     emailId: "lindsay.walton@example.com",
     role: "Member",
   },
-]);
-let peoplee = JSON.stringify(people);
-localStorage.setItem("people", peoplee);
-let userDataStore = localStorage.getItem("people");
-console.log(JSON.parse(userDataStore), "userDataStore");
-people = JSON.parse(userDataStore) ? JSON.parse(userDataStore) : people;
-console.log("people.valuepeople.value", people.values, people);
+];
 const selectedPeople = ref([]);
 const checked = ref(false);
-const tableData = ref(true);
 console.log("checked", checked.value);
 const indeterminate = computed(
   () =>
@@ -441,38 +434,28 @@ const indeterminate = computed(
 console.log("selectedPeople", selectedPeople);
 
 function deleteAll() {
-  tableData.value = false;
   // console.log("checked", checked.value, indeterminate, indeterminate.value);
   document.getElementById("checkBox").checked = false;
 
   let selectData = JSON.parse(JSON.stringify(selectedPeople.value));
   console.log("selectData", selectData.length);
   for (let i = 0; i < selectData.length; i++) {
-    people.splice(
-      people.findIndex((a) => a.emailId === selectData[i]),
+    people.value.splice(
+      people.value.findIndex((a) => a.emailId === selectData[i]),
       1
     );
   }
-  localStorage.removeItem("people");
-  localStorage.setItem("people", JSON.stringify(people));
-  tableData.value = true;
+  console.log("people", people.value);
 }
 function deleteUser(user) {
-  tableData.value = false;
-  console.log("use people", people);
-  people.splice(
-    people.findIndex((a) => a.emailId === user.emailId),
+  console.log("use people.value", people.value);
+  people.value.splice(
+    people.value.findIndex((a) => a.emailId === user.emailId),
     1
   );
-
-  localStorage.removeItem("people");
-  localStorage.setItem("people", JSON.stringify(people));
-
-  console.log("use people", people);
-  tableData.value = true;
+  console.log("use people.value", people.value);
 }
 function addData() {
-  tableData.value = false;
   let userName = document.forms["validate"]["userName"].value;
   let titleName = document.forms["validate"]["titleName"].value;
   let emailId = document.forms["validate"]["emailId"].value;
@@ -481,33 +464,26 @@ function addData() {
   var btn = document.getElementById("submitBtn");
 
   if (userName != "" && titleName != "" && emailId != "" && role != "") {
-    people.push({
+    people.value.push({
       userName: userName,
       titleName: titleName,
       emailId: emailId,
       role: role,
     });
-    let comp = computed(() => console.log("computddddddd==========="), people);
-    console.log("comp", comp.value);
     clearForm();
-    localStorage.removeItem("people");
-    localStorage.setItem("people", JSON.stringify(people));
   } else {
     alert("Fill all the fields");
   }
-  tableData.value = true;
 }
 function formSubmit(e, form) {
-  console.log("fcygvhjjjjjjjjjjjjjj");
   e.preventDefault();
   var btn = document.getElementById("submitBtn");
   addData();
   if (btn.value == "Edit") {
     btn.value = "Save";
     btn.innerHTML = "Save";
-    people = getUniqueListBy(people, "emailId");
+    people.value = getUniqueListBy(people.value, "emailId");
   }
-  console.log("peoplepeoplepeoplepeople", people);
 }
 function getUniqueListBy(arr, key) {
   return [...new Map(arr.map((item) => [item[key], item])).values()];

@@ -12,7 +12,7 @@
       <div class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
         <div class="flex h-16 justify-between">
           <div class="flex">
-            <div class="flex flex-shrink-0 items-center">
+            <!-- <div class="flex flex-shrink-0 items-center">
               <img
                 class="block h-8 w-auto lg:hidden"
                 src="https://tailwindui.com/img/logos/mark.svg?color=indigo&shade=600"
@@ -23,8 +23,8 @@
                 src="https://tailwindui.com/img/logos/mark.svg?color=indigo&shade=600"
                 alt="Your Company"
               />
-            </div>
-            <divid
+            </div> -->
+            <div
               id="navigate"
               class="hidden sm:-my-px sm:ml-6 sm:flex sm:space-x-8"
             >
@@ -43,10 +43,13 @@
                   :to="item.path"
                   class="n-link-base"
                   @click="chengeChanges(item)"
-                  >{{ item.name }}</NuxtLink
                 >
+                  <span>{{ item.name }}</span>
+                  <!-- <span v-if="auth.value.isAuthenticated">{{ item.name }}</span> -->
+                  <!-- <span v-else>{{ item.name }}</span> -->
+                </NuxtLink>
               </a>
-            </divid>
+            </div>
           </div>
         </div>
       </div>
@@ -67,7 +70,8 @@
             :aria-current="item.current ? 'page' : undefined"
           >
             <NuxtLink :to="item.path">
-              {{ item.name }}
+              <!-- <span v-if="auth.value.isAuthenticated"> {{ item.name }}</span> -->
+              <!-- <span v-else> {{ item.name }}</span> -->
             </NuxtLink>
           </DisclosureButton>
         </div>
@@ -112,7 +116,10 @@ import {
   MenuItems,
 } from "@headlessui/vue";
 import { Bars3Icon, BellIcon, XMarkIcon } from "@heroicons/vue/24/outline";
-
+const auth = useAuth();
+onMounted(() => {
+  console.log("auth=====", auth);
+});
 const user = {
   name: "Tom Cook",
   email: "tom@example.com",
@@ -120,11 +127,12 @@ const user = {
     "https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=facearea&facepad=2&w=256&h=256&q=80",
 };
 const navigation = [
-  { name: "Home", path: "/", current: true },
+  { name: "Home", path: "/home", current: true },
   { name: "ComingSoon", path: "/comingSoon", current: false },
   { name: "VueReactive", path: "/reactive", current: false },
   // { name: "Calendar", path: "/test", current: false },
   { name: "test1", path: "/test1", current: false },
+  { name: "Logout", path: "/logout", current: false },
 ];
 function chengeChanges(item) {
   console.log("item", item);
