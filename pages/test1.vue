@@ -37,9 +37,11 @@
 }
 </style>
 <script setup>
+import { useCounterstore } from "~/stores/counter";
 definePageMeta({
   middleware: ["auth"],
 });
+
 // import axios from "axios"
 // onMounted(() => {
 //   var a = 10;
@@ -187,4 +189,15 @@ let users = [
 // let filterData = users.filter((ele, index, array) => {
 // console.log(index, array, ele);
 // });
+
+const responseFunCall = useCounterstore();
+
+const respData = await fetch("https://dummyjson.com/products/1")
+  .then((res) => res.json())
+  .then((json) => {
+    return json;
+  });
+// responseFun
+console.log("respData", respData);
+responseFunCall.responseFun(respData);
 </script>

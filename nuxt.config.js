@@ -29,7 +29,7 @@ export default defineNuxtConfig({
   buildModules: [
     // ...
   ],
-  modules: ["@nuxtjs/tailwindcss"],
+  modules: ["@nuxtjs/tailwindcss", "@pinia/nuxt"],
   build: {
     postcss: {
       plugins: {
