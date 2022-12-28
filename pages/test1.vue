@@ -192,12 +192,12 @@ let users = [
 
 const responseFunCall = useCounterstore();
 
-const respData = await fetch("https://dummyjson.com/products/1")
+const respData = await fetch("https://dummyjson.com/products?limit=10&skip=10&select=title,price")
   .then((res) => res.json())
   .then((json) => {
     return json;
   });
 // responseFun
 console.log("respData", respData);
-responseFunCall.responseFun(respData);
+responseFunCall.responseFun(respData.products);
 </script>
